@@ -1,0 +1,34 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Actyrn/Scripts/main/AzureModded"))()
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local mainAccount = Players:WaitForChild("tkburm")
+local targetAccount = Players:WaitForChild("hamji_072")
+
+local isFollowing = false
+
+targetAccount.Chatted:Connect(function(message)
+    local lowerMessage = message:lower()
+    
+    if lowerMessage == ".destroy" then
+        if mainAccount.Character and mainAccount.Character:FindFirstChild("Humanoid") then
+            mainAccount.Character.Humanoid.Health = 0
+        end
+    elseif lowerMessage == ".follow" then
+        isFollowing = true
+    elseif lowerMessage == ".unfollow" then
+        isFollowing = false
+    elseif lowerMessage:sub(1, 6) == ".bring" then
+        if mainAccount.Character and targetAccount.Character and targetAccount.Character.PrimaryPart then
+            mainAccount.Character:SetPrimaryPartCFrame(targetAccount.Character.PrimaryPart.CFrame)
+        end
+    end
+end)
+
+RunService.Stepped:Connect(function()
+    if isFollowing and mainAccount.Character and targetAccount.Character then
+        local targetHumanoidRootPart = targetAccount.Character.HumanoidRootPart
+        local followOffset = Vector3.new(0, 3, 3)
+        mainAccount.Character.HumanoidRootPart.CFrame = targetHumanoidRootPart.CFrame * CFrame.new(followOffset)
+    end
+end)
