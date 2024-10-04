@@ -2,7 +2,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Actyrn/Scripts/main/A
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
-local mainAccount = Players:WaitForChild("tkburm")
+local mainAccount = Players:WaitForChild("I2024reg")
 local targetAccount = Players:WaitForChild("hamji_072")
 
 local isFollowing = false
